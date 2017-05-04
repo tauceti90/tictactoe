@@ -1,6 +1,5 @@
 #pragma once
 
-#include <array>
 
 /**
 Class representing Tic-Tac-Toe 'board'
@@ -8,5 +7,21 @@ Class representing Tic-Tac-Toe 'board'
 class Board
 {
 private:
-	char board_[9]; // I can't think of a tic-tac-toe game thats not 3 x 3
+
+	enum player : char
+	{
+		HUMAN_PLAYER = 'x',
+		AI_PLAYER = 'o',
+		NONE = ' ', //no winner yet, the game is still in progress
+		TIE, // its a tie, game ended.
+	};
+	player board_[9]; // I can't think of a tic-tac-toe game that's not 3 x 3
+	
+public:
+	
+	Board();
+
+	void markBoard(char position, player sym);
+	void printBoard();
+	player getWinner();
 };
