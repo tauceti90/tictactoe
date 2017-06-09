@@ -5,6 +5,7 @@ class Player
 {
 public:
 	virtual void play(Board& board) = 0;
+	int markRandomPosition(Board& board);
 };
 
 class HumanPlayer : public Player

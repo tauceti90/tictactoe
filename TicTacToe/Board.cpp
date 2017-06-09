@@ -1,5 +1,6 @@
 #include "Board.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 
 using namespace std;
@@ -17,6 +18,33 @@ void Board::markBoard(char position, player sym)
 	board_[position] = sym;
 }
 
+Board::player Board::mark(char position)
+{
+	return board_[position];
+}
+
+int Board::getRandomMove()
+{
+	int count = 0;
+	int availablePositions[9];
+	int i;
+
+	for (i = 0; i < 9; i++) {
+		if (board_[i] == NONE) {
+			availablePositions[count++] = i;
+		}
+	}
+	int rval = rand();
+
+	ofstream myfile;
+	myfile.open("mine.txt", ios::app);
+	myfile << rval << endl;
+	myfile.close();
+
+	return (count == 0)? -1: availablePositions[rval % count];
+
+}
+
 Board::player Board::getWinner()
 {
 	/* board layout
@@ -30,11 +58,11 @@ Board::player Board::getWinner()
 	{
 		return board_[0];
 	}
-	else if ((board_[3] == board_[4]) && (board_[4] == board_[5]) && (board_[0] != NONE))
+	else if ((board_[3] == board_[4]) && (board_[4] == board_[5]) && (board_[3] != NONE))
 	{
 		return board_[3];
 	}
-	else if ((board_[6] == board_[7]) && (board_[7] == board_[8]) && (board_[0] != NONE))
+	else if ((board_[6] == board_[7]) && (board_[7] == board_[8]) && (board_[6] != NONE))
 	{
 		return board_[6];
 	}
@@ -56,7 +84,7 @@ Board::player Board::getWinner()
 	{
 		return board_[0];
 	}
-	else if ((board_[2] == board_[4]) && (board_[4] == board_[6]) && (board_[2] != NONE))
+	else if ((board_[2] == board_[4]) && (board_[4] ==  board_[6]) && (board_[2] != NONE))
 	{
 		return board_[2];
 	}
